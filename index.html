@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DJ Sessions</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Página de acceso -->
+    <div id="login-container">
+      <div class="login-box">
+        <img src="logo.png" alt="DJ Sessions Logo" class="logo" />
+        <h1>Acceso Exclusivo</h1>
+        <p>Introduce el código de acceso para continuar.</p>
+        <input
+          type="password"
+          id="access-code"
+          placeholder="Código de acceso"
+        />
+        <button id="login-btn">Entrar</button>
+        <p id="error-message"></p>
+      </div>
+    </div>
+
+    <!-- Contenido principal oculto inicialmente -->
+    <div id="main-container" style="display: none">
+      <button id="logout-btn">X</button>
+      <!-- Botón de Logout -->
+      <header>
+        <h1>Sesiones DJ Palomo</h1>
+        <img src="logo.png" alt="DJ Sessions" class="header-image" />
+      </header>
+      <main>
+        <div id="sessions-grid"></div>
+        <div id="player-container" style="display: none">
+          <div id="session-title">Reproduciendo: -</div>
+          <div id="audio-player">
+            <button id="prev-btn" class="player-btn">⏮</button>
+            <button id="backward-btn" class="player-btn">-30s</button>
+            <button id="play-btn" class="player-btn">▶️</button>
+            <button id="pause-btn" class="player-btn" style="display: none">
+              ⏸
+            </button>
+            <button id="forward-btn" class="player-btn">+30s</button>
+            <button id="next-btn" class="player-btn">⏭</button>
+          </div>
+          <audio id="audio" controls>
+            <source id="audio-source" src="" type="audio/mp3" />
+            Tu navegador no soporta el elemento de audio.
+          </audio>
+        </div>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

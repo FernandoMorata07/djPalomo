@@ -1,0 +1,255 @@
+/* Estilo base */
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f4f8;
+  color: #333;
+  text-align: center;
+}
+
+/* Página de acceso */
+#login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #007bff, #00aaff);
+}
+
+.login-box {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 40px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  border-radius: 50%;
+  border: 5px solid #007bff;
+}
+
+.login-box h1 {
+  margin: 20px 0;
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.login-box input {
+  border: 2px solid #007bff;
+  border-radius: 25px;
+  padding: 15px;
+  width: calc(100% - 30px);
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.login-box button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 25px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.login-box button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+#error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Contenido principal */
+#main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+}
+
+#logout-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px; /* En la esquina superior derecha */
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1001;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+#logout-btn:hover {
+  background-color: #cc0000;
+  transform: scale(1.1);
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 2rem;
+  color: #007bff;
+}
+
+.header-image {
+  border-radius: 50%;
+  border: 5px solid #007bff;
+  margin-top: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+#sessions-grid {
+  display: grid;
+  justify-content: flex-end; /* Alinear a la derecha */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adaptativo */
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.session-box {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+}
+
+.session-box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para la sesión seleccionada */
+.session-box.selected {
+  background-color: #007bff; /* Fondo azul */
+  color: #fff; /* Letras blancas */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Un poco más de sombra */
+  transform: scale(1.05); /* Agrandar un poco el tamaño */
+}
+
+#player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+#session-title {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+#audio-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.player-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  margin: 5px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.player-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+#audio {
+  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #sessions-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .login-box {
+    padding: 20px;
+  }
+
+  .header-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  #session-title {
+    font-size: 1.2rem;
+  }
+
+  .player-btn {
+    padding: 12px;
+    font-size: 1.2rem;
+  }
+
+  #player-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 10px;
+  }
+
+  .header-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  #session-title {
+    font-size: 1rem;
+  }
+
+  .player-btn {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  #sessions-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}

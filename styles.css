@@ -82,7 +82,7 @@ body {
 #logout-btn {
   position: fixed;
   top: 20px;
-  right: 20px; /* En la esquina superior derecha */
+  right: 20px; /* Cambiado para estar en la esquina superior derecha */
   background-color: #ff4d4d;
   color: white;
   border: none;
@@ -118,8 +118,11 @@ header h1 {
 
 #sessions-grid {
   display: grid;
-  justify-content: flex-end; /* Alinear a la derecha */
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adaptativo */
+  justify-content: center;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(150px, 1fr)
+  ); /* Adaptativo y centrado */
   gap: 20px;
   width: 100%;
   max-width: 1200px;
@@ -131,7 +134,7 @@ header h1 {
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, color 0.3s;
   text-align: center;
   font-size: 1rem;
   color: #333;
@@ -142,12 +145,9 @@ header h1 {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo para la sesión seleccionada */
-.session-box.selected {
-  background-color: #007bff; /* Fondo azul */
-  color: #fff; /* Letras blancas */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Un poco más de sombra */
-  transform: scale(1.05); /* Agrandar un poco el tamaño */
+.session-box.active-session {
+  background-color: #007bff; /* Color azul para la sesión activa */
+  color: #ffffff; /* Color blanco para el texto de la sesión activa */
 }
 
 #player-container {

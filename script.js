@@ -34,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Función para cargar las sesiones de DJ
 function loadSessions() {
   const sessionNames = [
     "cancion1.mp3",
@@ -47,33 +46,30 @@ function loadSessions() {
   ];
 
   const sessionsGrid = document.getElementById("sessions-grid");
-  sessionsGrid.innerHTML = ""; // Limpiar contenido previo
+  sessionsGrid.innerHTML = "";
 
   sessionNames.forEach((fileName, index) => {
     const sessionBox = document.createElement("div");
     sessionBox.className = "session-box";
     sessionBox.textContent = `Sesión ${index + 1}`;
     sessionBox.dataset.src = `sessions/${fileName}`;
-    sessionBox.dataset.index = index; // Añade el índice
-
+    sessionBox.dataset.index = index;
     sessionBox.addEventListener("click", playSession);
-
     sessionsGrid.appendChild(sessionBox);
   });
+
+  window.sessions = sessionNames;
 }
 
-// Función para manejar la reproducción de una sesión
 function playSession(event) {
   const sessionSrc = event.currentTarget.dataset.src;
   const audioElement = document.getElementById("audio");
   const audioSource = document.getElementById("audio-source");
   const sessionTitle = document.getElementById("session-title");
 
-  // Cambiar la fuente del audio
   audioSource.src = sessionSrc;
   audioElement.load();
 
-  // No reproducir hasta que se presione el botón de reproducción
   document.getElementById("play-btn").style.display = "inline-block";
   document.getElementById("pause-btn").style.display = "none";
 
@@ -84,52 +80,72 @@ function playSession(event) {
 
   document.getElementById("player-container").style.display = "block";
 
-  // Marcar la sesión seleccionada
-  const allSessionBoxes = document.querySelectorAll(".session-box");
-  allSessionBoxes.forEach((box) => box.classList.remove("selected"));
-  event.currentTarget.classList.add("selected");
+  document.querySelectorAll(".session-box").forEach((box) => {
+    box.classList.remove("active-session");
+  });
+  event.currentTarget.classList.add("active-session");
 
-  // Guarda la pista actual en el contexto global
   window.currentSessionIndex = parseInt(event.currentTarget.dataset.index);
 }
 
-// Función para configurar los controles del reproductor
 function setupPlayerControls() {
   const audioElement = document.getElementById("audio");
-  const playBtn = document.getElementById("play-btn");
-  const pauseBtn = document.getElementById("pause-btn");
 
-  playBtn.addEventListener("click", () => {
+  document.getElementById("play-btn").addEventListener("click", () => {
     audioElement.play();
-    playBtn.style.display = "none";
-    pauseBtn.style.display = "inline-block";
+    document.getElementById("play-btn").style.display = "none";
+    document.getElementById("pause-btn").style.display = "inline-block";
   });
 
-  pauseBtn.addEventListener("click", () => {
+  document.getElementById("pause-btn").addEventListener("click", () => {
     audioElement.pause();
-    playBtn.style.display = "inline-block";
-    pauseBtn.style.display = "none";
-  });
-
-  audioElement.addEventListener("ended", () => {
-    playBtn.style.display = "inline-block";
-    pauseBtn.style.display = "none";
-  });
-
-  document.getElementById("prev-btn").addEventListener("click", () => {
-    changeTrack(-1);
+    document.getElementById("play-btn").style.display = "inline-block";
+    document.getElementById("pause-btn").style.display = "none";
   });
 
   document.getElementById("next-btn").addEventListener("click", () => {
-    changeTrack(1);
+    changeSession(1);
+  });
+
+  document.getElementById("prev-btn").addEventListener("click", () => {
+    changeSession(-1);
+  });
+
+  document.getElementById("forward-btn").addEventListener("click", () => {
+    if (audioElement) {
+      audioElement.currentTime += 30;
+    }
+  });
+
+  document.getElementById("backward-btn").addEventListener("click", () => {
+    if (audioElement) {
+      audioElement.currentTime -= 30;
+    }
   });
 }
 
-// Función para cambiar de pista
-function changeTrack(direction) {
-  const sessionBoxes = document.querySelectorAll(".session-box");
-  const newIndex =
-    (window.currentSessionIndex + direction + sessionBoxes.length) %
-    sessionBoxes.length;
-  sessionBoxes[newIndex].click(); // Simula el click para cambiar la pista
+function changeSession(direction) {
+  const sessions = window.sessions || [];
+  let currentIndex = window.currentSessionIndex || 0;
+  currentIndex += direction;
+
+  if (currentIndex >= 0 && currentIndex < sessions.length) {
+    const nextSessionSrc = `sessions/${sessions[currentIndex]}`;
+    const audioElement = document.getElementById("audio");
+    const audioSource = document.getElementById("audio-source");
+    const sessionTitle = document.getElementById("session-title");
+
+    audioSource.src = nextSessionSrc;
+    audioElement.load();
+    audioElement.play();
+
+    sessionTitle.textContent = `Reproduciendo: ${sessions[currentIndex].replace(
+      ".mp3",
+      ""
+    )}`;
+    document.getElementById("play-btn").style.display = "none";
+    document.getElementById("pause-btn").style.display = "inline-block";
+
+    window.currentSessionIndex = currentIndex;
+  }
 }
